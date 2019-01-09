@@ -34,27 +34,24 @@ class AppDetails extends StatelessWidget {
               child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-                    Text(app.imName.label, overflow: TextOverflow.clip),
-                    //FlatButton(onPressed: _launchURL,
-                    //padding: EdgeInsets.all(00.00),
-                    //materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                    //color: Colors.red,
-                    //child:
+                    Text(app.imName.label, overflow: TextOverflow.clip, style: TextStyle(fontWeight: FontWeight.bold)),
                     InkWell(
                       onTap: () {
-                        print('couilles');
-                        //_launchURL(app.imArtist.attributes.href);
+                        _launchURL(app.imArtist.attributes.href);
                       },
                       child: Text(app.imArtist.label,
                           style: TextStyle(color: Colors.blueAccent)),
                     ),
                     Text(app.imPrice.label),
+                    Text(app.category.attributes.label),
                   ]),
             ),
             Column(children: <Widget>[
               RaisedButton(
-                onPressed: _launchURL,
-                child: Text('VOIR'),
+                shape: RoundedRectangleBorder(borderRadius: new BorderRadius.circular(6.00)),
+                color: Colors.lightBlue,
+                onPressed: () => _launchURL(app.link.attributes.href),
+                child: Text('VOIR', style: TextStyle(color: Colors.white)),
               )
             ]),
           ]),
@@ -91,8 +88,8 @@ class AppDetails extends StatelessWidget {
     );
   }
 
-  _launchURL() async {
-    String url = app.imArtist.attributes.href;
+  _launchURL(String url) async {
+    //String url = app.imArtist.attributes.href;
     debugPrint(url);
     if (await canLaunch(url)) {
       await launch(url);
