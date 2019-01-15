@@ -1,5 +1,3 @@
-
-
 class TopApps {
   Feed feed;
 
@@ -252,13 +250,18 @@ class Entry {
     return data;
   }
 
-  Map<String, dynamic> toMap() {
+  Map <dynamic, dynamic> toMap() {
     Map map = {
       "id" : dbId,
       "app_label" : imName,
-      "app_summary" : summary,
+      //"app_summary" : summary,
       //"app_icon_base64" : imImageBytes,
     };
+
+    if (dbId != null) {
+      map["id"] = dbId;
+    }
+
     return map;
   }
 

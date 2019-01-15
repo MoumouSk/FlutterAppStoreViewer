@@ -13,7 +13,6 @@ class AppList extends StatefulWidget {
 class AppListState extends State<AppList> {
   List<TopApps> data;
   List<Entry> apps;
-  DatabaseHelper testdb = new DatabaseHelper();
 
   ScrollController _scrollController = new ScrollController();
   bool isPerformingRequest = false;
@@ -22,14 +21,12 @@ class AppListState extends State<AppList> {
   @override
   void initState() {
     super.initState();
-    //testdb.initDatabase();
-    testdb.dropDatabase();
     _scrollController.addListener(() {
       if (_scrollController.position.pixels ==
               _scrollController.position.maxScrollExtent &&
           multiplier < 4) {
-        multiplier += 1;
         _fetchMoreData();
+        multiplier += 1;
       }
     });
   }
@@ -44,6 +41,10 @@ class AppListState extends State<AppList> {
     if (!isPerformingRequest) {
       setState(() => isPerformingRequest = true);
       await fetch(multiplier);
+      for (var i = 0; i < apps.length; i++) {
+        apps[i].dbId = i;
+        DBProvider.db.newEntry(apps[i]);
+      }
       setState(() {
         isPerformingRequest = false;
       });
@@ -56,10 +57,17 @@ class AppListState extends State<AppList> {
       builder: (context, AsyncSnapshot<TopApps> snapshot) {
         if (!snapshot.hasData) return new Container();
         apps = snapshot.data.feed.entry;
+        for (var i = 0; i < apps.length; i++) {
+          apps[i].dbId = i + 1;
+          DBProvider.db.newEntry(apps[i]);
+        }
+        //DBProvider.db.deleteAll();
+        //DBProvider.db.printDb();
+        //DBProvider.db.dropAllDb();
         return new ListView.builder(
+          controller: _scrollController,
           itemCount: apps.length,
           itemBuilder: (context, index) {
-            //testdb.upsertApps(apps[index]);
             return GestureDetector(
               onTap: () {
                 Navigator.push(
@@ -111,7 +119,6 @@ class AppListState extends State<AppList> {
               ),
             );
           },
-          controller: _scrollController,
         );
       },
     );
