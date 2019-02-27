@@ -34,7 +34,9 @@ class AppDetails extends StatelessWidget {
               child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-                    Text(app.imName.label, overflow: TextOverflow.clip, style: TextStyle(fontWeight: FontWeight.bold)),
+                    Text(app.imName.label,
+                        overflow: TextOverflow.clip,
+                        style: TextStyle(fontWeight: FontWeight.bold)),
                     InkWell(
                       onTap: () {
                         _launchURL(app.imArtist.attributes.href);
@@ -48,7 +50,8 @@ class AppDetails extends StatelessWidget {
             ),
             Column(children: <Widget>[
               RaisedButton(
-                shape: RoundedRectangleBorder(borderRadius: new BorderRadius.circular(6.00)),
+                shape: RoundedRectangleBorder(
+                    borderRadius: new BorderRadius.circular(6.00)),
                 color: Colors.lightBlue,
                 onPressed: () => _launchURL(app.link.attributes.href),
                 child: Text('VOIR', style: TextStyle(color: Colors.white)),

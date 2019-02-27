@@ -22,23 +22,23 @@ class Feed {
   Updated updated;
   Rights rights;
   Title title;
-  Icon icon;
+  FeedIcon icon;
   List<Link> link;
   Self self;
 
   Feed(
       {this.author,
-        this.entry,
-        this.updated,
-        this.rights,
-        this.title,
-        this.icon,
-        this.link,
-        this.self});
+      this.entry,
+      this.updated,
+      this.rights,
+      this.title,
+      this.icon,
+      this.link,
+      this.self});
 
   Feed.fromJson(Map<String, dynamic> json) {
     author =
-    json['author'] != null ? new Author.fromJson(json['author']) : null;
+        json['author'] != null ? new Author.fromJson(json['author']) : null;
     if (json['entry'] != null) {
       entry = new List<Entry>();
       json['entry'].forEach((v) {
@@ -46,11 +46,11 @@ class Feed {
       });
     }
     updated =
-    json['updated'] != null ? new Updated.fromJson(json['updated']) : null;
+        json['updated'] != null ? new Updated.fromJson(json['updated']) : null;
     rights =
-    json['rights'] != null ? new Rights.fromJson(json['rights']) : null;
+        json['rights'] != null ? new Rights.fromJson(json['rights']) : null;
     title = json['title'] != null ? new Title.fromJson(json['title']) : null;
-    icon = json['icon'] != null ? new Icon.fromJson(json['icon']) : null;
+    icon = json['icon'] != null ? new FeedIcon.fromJson(json['icon']) : null;
     if (json['link'] != null) {
       link = new List<Link>();
       json['link'].forEach((v) {
@@ -163,22 +163,24 @@ class Entry {
   int dbId;
 
   Entry(
-      {this.imName,
-        this.imImage,
-        this.summary,
-        this.imPrice,
-        this.imContentType,
-        this.rights,
-        this.title,
-        this.link,
-        this.id,
-        this.imArtist,
-        this.category,
-        this.imReleaseDate});
+      {this.dbId,
+      this.imName,
+      this.imImage,
+      this.summary,
+      this.imPrice,
+      this.imContentType,
+      this.rights,
+      this.title,
+      this.link,
+      this.id,
+      this.imArtist,
+      this.category,
+      this.imReleaseDate
+      });
 
   Entry.fromJson(Map<String, dynamic> json) {
     imName =
-    json['im:name'] != null ? new ImName.fromJson(json['im:name']) : null;
+        json['im:name'] != null ? new ImName.fromJson(json['im:name']) : null;
     if (json['im:image'] != null) {
       imImage = new List<ImImage>();
       json['im:image'].forEach((v) {
@@ -186,7 +188,7 @@ class Entry {
       });
     }
     summary =
-    json['summary'] != null ? new Summary.fromJson(json['summary']) : null;
+        json['summary'] != null ? new Summary.fromJson(json['summary']) : null;
     imPrice = json['im:price'] != null
         ? new ImPrice.fromJson(json['im:price'])
         : null;
@@ -194,7 +196,7 @@ class Entry {
         ? new ImContentType.fromJson(json['im:contentType'])
         : null;
     rights =
-    json['rights'] != null ? new Rights.fromJson(json['rights']) : null;
+        json['rights'] != null ? new Rights.fromJson(json['rights']) : null;
     title = json['title'] != null ? new Title.fromJson(json['title']) : null;
     link = json['link'] != null ? new Link.fromJson(json['link']) : null;
     id = json['id'] != null ? new Id.fromJson(json['id']) : null;
@@ -250,21 +252,14 @@ class Entry {
     return data;
   }
 
-  Map <dynamic, dynamic> toMap() {
+  Map<dynamic, dynamic> toMap() {
     Map map = {
-      "id" : dbId,
-      "app_label" : imName,
-      //"app_summary" : summary,
-      //"app_icon_base64" : imImageBytes,
+      "id": dbId,
+      "app_label": imName.label,
+      "app_summary" : summary.label,
     };
-
-    if (dbId != null) {
-      map["id"] = dbId;
-    }
-
     return map;
   }
-
 }
 
 class ImName {
@@ -674,12 +669,12 @@ class Updated {
   }
 }
 
-class Icon {
+class FeedIcon {
   String label;
 
-  Icon({this.label});
+  FeedIcon({this.label});
 
-  Icon.fromJson(Map<String, dynamic> json) {
+  FeedIcon.fromJson(Map<String, dynamic> json) {
     label = json['label'];
   }
 

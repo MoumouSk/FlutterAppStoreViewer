@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
-
-import 'app_list.dart';
+import 'home_navigation.dart';
 
 void main() {
   runApp(MaterialApp(
-    home: AppList(),
+    home: HomeNavigation(),
     title: 'Top Apps Viewer',
   ));
 }

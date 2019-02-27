@@ -126,12 +126,6 @@ class AppListState extends State<AppList> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
-          appBar: AppBar(
-            title: Text('Top Apps List'),
-          ),
-          body: appList()),
-    );
+    return appList();
   }
 }

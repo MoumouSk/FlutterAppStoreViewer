@@ -89,6 +89,7 @@ class DBProvider {
     debugPrint('Debug Print : ${content.toString()}');
   }
 
+
   newEntry(Entry app) async {
     final db = await database;
     var table = await db.rawQuery("SELECT MAX(id)+1 as id FROM Applist");
@@ -113,5 +114,16 @@ class DBProvider {
           [app.imName.label, app.summary.label, app.dbId]);
     }
     return raw;
+  }
+
+
+  Future<Entry> insertEntries(Entry app) async {
+    final db = await database;
+
+    //var res = db.insert('Applist', app.toJson());
+  }
+
+  Future<List<Entry>> getAllEntries() async {
+    //final db = await database;
   }
 }
